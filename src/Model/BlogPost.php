@@ -10,7 +10,6 @@ use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\TextAreaField;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBText;
-use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 
 class BlogPost extends Page
@@ -41,8 +40,7 @@ class BlogPost extends Page
     );
 
     private static $has_one = array(
-        'FeaturedImage' => Image::class,
-        'Author' => Member::class,
+        'FeaturedImage' => Image::class
     );
 
     private static $owns = array(
@@ -84,9 +82,6 @@ class BlogPost extends Page
             $featured_image,
             'Content'
         );
-
-        $author = \SilverStripe\Forms\DropdownField::create('Author', 'Author', Member::get(), $this->Author());
-        $fields->addFieldToTab('Root.Main', $author, 'Content');
 
         $url_segment = $fields->dataFieldByName('URLSegment');
 
